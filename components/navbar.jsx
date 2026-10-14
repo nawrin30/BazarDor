@@ -1,5 +1,7 @@
+
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -34,6 +36,7 @@ export function Navbar() {
 
   const [open, setOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+
   const accountRef = useRef(null);
 
   useEffect(() => {
@@ -82,15 +85,19 @@ export function Navbar() {
   return (
     <header className="site-header">
       <div className="container nav-top">
-        <Link href="/" className="brand">
+        <Link
+          href="/"
+          className="brand"
+          aria-label="বাজার দর হোম"
+        >
           <span className="brand-logo">
             <Image
-  src="/logo.png"
-  alt="বাজার দর লোগো"
-  width={50}
-  height={50}
-  priority
-/>
+              src="/logo.png"
+              alt="বাজার দর লোগো"
+              width={50}
+              height={50}
+              priority
+            />
           </span>
 
           <span>
@@ -120,7 +127,9 @@ export function Navbar() {
                 className="profile-link account-trigger"
                 aria-expanded={accountOpen}
                 aria-haspopup="true"
-                onClick={() => setAccountOpen((value) => !value)}
+                onClick={() =>
+                  setAccountOpen((value) => !value)
+                }
                 type="button"
               >
                 <UserRound size={16} />
@@ -146,7 +155,10 @@ export function Navbar() {
                     আমার প্রোফাইল
                   </Link>
 
-                  <button onClick={logout} type="button">
+                  <button
+                    onClick={logout}
+                    type="button"
+                  >
                     <LogOut size={15} />
                     সাইন আউট
                   </button>
@@ -155,7 +167,10 @@ export function Navbar() {
             </div>
           ) : (
             <>
-              <Link className="signin-link" href="/signin">
+              <Link
+                className="signin-link"
+                href="/signin"
+              >
                 সাইন ইন
               </Link>
 
@@ -170,15 +185,21 @@ export function Navbar() {
         </div>
       </div>
 
-      <nav className={`category-nav ${open ? "open" : ""}`}>
+      <nav
+        className={`category-nav ${open ? "open" : ""}`}
+      >
         <div className="container category-inner">
           {navItems.map(([label, href, icon]) => (
             <Link
               key={href}
               className={pathname === href ? "active" : ""}
               href={href}
+              onClick={() => setOpen(false)}
             >
-              <span className="category-icon" aria-hidden="true">
+              <span
+                className="category-icon"
+                aria-hidden="true"
+              >
                 {icon}
               </span>
 
@@ -194,6 +215,7 @@ export function Navbar() {
                 : ""
             }
             href="/category/sobji"
+            onClick={() => setOpen(false)}
           >
             আরও <ChevronDown size={14} />
           </Link>
